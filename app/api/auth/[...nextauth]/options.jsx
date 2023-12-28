@@ -1,5 +1,7 @@
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import CredentialsProvider from "next-auth/providers/credentials"
+import User from "@/app/models/User"
 
 export const options = {
 providers:[
@@ -34,6 +36,41 @@ providers:[
         },
         clientId: process.env.GOOGLE_ID,
         clientSecret: process.env.GOOGLE_SECRET
+    }),
+    CredentialsProvider({
+        name: "Credentials",
+        credentials:{
+                email :{
+                    label:"email:",
+                    type:"text"
+                },
+                password :{
+                    label:"password:",
+                    type:"password"
+                }
+        },
+
+        async authorize(credentials)
+        {
+            try{
+                const foundUser = await User.findOne({email:credentials.email})
+                .lean()
+                .exec();
+                console.log("founduser",foundUser)
+                if(foundUser)
+                {
+                    const matchEmail = foundUser.email;
+                    const matchPassword = foundUser.password
+                    foundUser["role"] = "Umverified Email"
+                }
+            }
+            catch(error)
+            {
+
+            }
+            return null;
+        }
+
     })
 ],
 callbacks :{
