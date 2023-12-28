@@ -5,7 +5,7 @@ export const options = {
 providers:[
     GitHubProvider({
         profile(profile){
-            console.log("profile gitHub",profile)
+            // console.log("profile gitHub",profile)
 
             let userRole = "GitHub User"
             if(profile?.email == 'nikitharamu992@gmail.com')
@@ -23,7 +23,7 @@ providers:[
     }),
     GoogleProvider({
         profile(profile){
-            console.log("google profile",profile)
+            // console.log("google profile",profile)
 
             let userRole = "Google User"
             return{

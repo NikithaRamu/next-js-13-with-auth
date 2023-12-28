@@ -11,7 +11,7 @@ const Member = () => {
         }
     }
     )
-    console.log("sesssion",session)
+    // console.log("sesssion",session)
   return (
     <div>
       <h1>
